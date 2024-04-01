@@ -1,3 +1,4 @@
+from car import Car
 import requests
 from bs4 import BeautifulSoup
 
@@ -14,15 +15,12 @@ def get_page_listings(page):
         model = article.get('data-model')
         price = article.get('data-price')
         mileage = article.get('data-mileage')
-        data = {
-            'id': uid,
-            'make': make,
-            'model': model,
-            'price': price,
-            'mileage': mileage
-        }
-        listings.append(data)
+
+        car = Car(uid, make, model, price, mileage)
+        listings.append(car)
     return listings
-for i in range(1,21):
+
+
+for i in range(1, 21):
     result = get_page_listings(i)
     print(result)
