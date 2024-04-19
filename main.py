@@ -1,6 +1,8 @@
 from car import Car
 import requests
 from bs4 import BeautifulSoup
+import database
+import time
 
 
 def get_page_listings(page):
@@ -21,6 +23,16 @@ def get_page_listings(page):
     return listings
 
 
-for i in range(1, 21):
-    result = get_page_listings(i)
-    print(result)
+def update_listings():
+    for i in range(1, 21):
+        result = get_page_listings(i)
+        for car in result:
+            if not database.check_car_exists(car):
+                database.insert_car(car)
+
+                print(car.uid, car.make, car.model)
+
+
+while True:
+    update_listings()
+    time.sleep(5)
