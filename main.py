@@ -10,7 +10,7 @@ from logger import logger
 def update_listings():
     logger.info('start updating listings')
     listings = []
-    for i in range(1, 5):
+    for i in range(1, 21):
         logger.info(f'processing page {i}')
         try:
             result = get_page_listings(i)
@@ -28,6 +28,6 @@ def update_listings():
     logger.info('finish updating listings')
 
 
-while True:
+if __name__ == '__main__':
     update_listings()
-    time.sleep(10)
+
