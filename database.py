@@ -10,23 +10,25 @@ cursor.execute("""
         make TEXT,
         model TEXT,
         price INTEGER,
-        mileage INTEGER
+        mileage INTEGER,
+        link TEXT,
+        photo_link TEXT
     );
     """)
 
 
 def insert_car(car):
-    q = ('INSERT INTO cars (uid,make,model,price,mileage)'
-         'VALUES (?,?,?,?,?)')
+    q = ('INSERT INTO cars (uid,make,model,price,mileage,link,photo_link)'
+         'VALUES (?,?,?,?,?,?,?)')
 
-    cursor.execute(q, [car.uid, car.make, car.model, car.price, car.mileage])
+    cursor.execute(q, [car.uid, car.make, car.model, car.price, car.mileage, car.link, car.photo])
     connection.commit()
+
 
 def check_car_exists(car):
     q = 'SELECT * FROM cars WHERE uid=?'
-    data = cursor.execute(q,[car.uid]).fetchone()
+    data = cursor.execute(q, [car.uid]).fetchone()
     if data:
         return True
     else:
         return False
-
